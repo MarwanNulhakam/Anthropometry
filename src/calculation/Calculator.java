@@ -15,7 +15,10 @@ public class Calculator {
     
     public void calculate(data.Person person){
         this.person=person;
-        
+        if(person.getAge()<0){
+            javax.swing.JOptionPane.showMessageDialog(null, "you have enter the wrong date of birth", "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         person.setHeightOfAgeStatus(checkHeightOfAgeStatus());
         person.setWeightOfAgeStatus(checkWeightOfAgeStatus());
         person.setWeightOfHeightStatus(checkWeightOfHeightStatus());
@@ -23,42 +26,76 @@ public class Calculator {
     }
     
     private String checkWeightOfAgeStatus(){
+        double [][]weightAgeStandard;
+        String [] weightAgeStandardIndex;
+        if(person.isMale()){
+            weightAgeStandard = table.boyWeightAgeStandard;
+            weightAgeStandardIndex = table.boyWeightAgeStandardIndex;
+        }else{
+            weightAgeStandard = table.girlWeightAgeStandard;
+            weightAgeStandardIndex = table.girlWeightAgeStandardIndex;
+        }
+        
         if(person.getAge()>60)
             return "error";
-        return  table.boyWeightAgeStandard[person.getAge()][0]>person.getWeight() ? table.boyWeightAgeStandardIndex[0]:
-                table.boyWeightAgeStandard[person.getAge()][1]>person.getWeight() ? table.boyWeightAgeStandardIndex[1]:
-                table.boyWeightAgeStandard[person.getAge()][5]<person.getWeight() ? table.boyWeightAgeStandardIndex[3]:
-                table.boyWeightAgeStandardIndex[2];
+        return  weightAgeStandard[person.getAge()][0]>person.getWeight() ? weightAgeStandardIndex[0]:
+                weightAgeStandard[person.getAge()][1]>person.getWeight() ? weightAgeStandardIndex[1]:
+                weightAgeStandard[person.getAge()][5]<person.getWeight() ? weightAgeStandardIndex[3]:
+                weightAgeStandardIndex[2];
         
     }
     
     private String checkHeightOfAgeStatus(){
+        double [][]heightAgeStandard;
+        String [] heightAgeStandardIndex;
+        if(person.isMale()){
+            heightAgeStandard = table.boyHeightAgeStandard;
+            heightAgeStandardIndex = table.boyHeightAgeStandardIndex;
+        }else{
+            heightAgeStandard = table.girlHeightAgeStandard;
+            heightAgeStandardIndex = table.girlHeightAgeStandardIndex;
+        }
+        
         if(person.getAge()>60)
             return "error";
-        else
-            return  table.boyHeightAgeStandard[person.getAge()][0]>person.getHeight() ? table.boyHeightAgeStandardIndex[0]:
-                table.boyHeightAgeStandard[person.getAge()][1]>person.getHeight() ? table.boyHeightAgeStandardIndex[1]:
-                table.boyHeightAgeStandard[person.getAge()][5]<person.getHeight() ? table.boyHeightAgeStandardIndex[3]:
-                table.boyHeightAgeStandardIndex[2];
+        
+        return  heightAgeStandard[person.getAge()][0]>person.getHeight() ? heightAgeStandardIndex[0]:
+                heightAgeStandard[person.getAge()][1]>person.getHeight() ? heightAgeStandardIndex[1]:
+                heightAgeStandard[person.getAge()][5]<person.getHeight() ? heightAgeStandardIndex[3]:
+                heightAgeStandardIndex[2];
         
     }
     
     private String checkWeightOfHeightStatus(){
         int index = 0;
+        double [][]weightHeightStandard;
+        String [] weightHeightStandardIndex;
         
         if(person.getAge()<=24){
             index = (int)((person.getHeight() - 45)*2);
-            return  table.boyWeightLengthStandard[index][0]>person.getWeight() ? table.boyWeightHeightStandardIndex[0]:
-                table.boyWeightLengthStandard[index][1]>person.getWeight() ? table.boyWeightHeightStandardIndex[1]:
-                table.boyWeightLengthStandard[index][5]<person.getWeight() ? table.boyWeightHeightStandardIndex[3]:
-                table.boyWeightHeightStandardIndex[2];
+            if(person.isMale()){
+                weightHeightStandard = table.boyWeightLengthStandard;
+                weightHeightStandardIndex = table.boyWeightHeightStandardIndex;
+            }else{
+                weightHeightStandard = table.girlWeightLengthStandard;
+                weightHeightStandardIndex = table.girlWeightHeightStandardIndex;
+            }
         }
         else{
             index = (int)((person.getHeight() - 65)*2);
-            return  table.boyWeightHeightStandard[index][0]>person.getWeight() ? table.boyWeightHeightStandardIndex[0]:
-                table.boyWeightHeightStandard[index][1]>person.getWeight() ? table.boyWeightHeightStandardIndex[1]:
-                table.boyWeightHeightStandard[index][5]<person.getWeight() ? table.boyWeightHeightStandardIndex[3]:
-                table.boyWeightHeightStandardIndex[2];
+            if(person.isMale()){
+                weightHeightStandard = table.boyWeightHeightStandard;
+                weightHeightStandardIndex = table.boyWeightHeightStandardIndex;
+            }else{
+                weightHeightStandard = table.girlWeightHeightStandard;
+                weightHeightStandardIndex = table.girlWeightHeightStandardIndex;
+            }
         }
+        
+        return  weightHeightStandard[index][0]>person.getWeight() ? weightHeightStandardIndex[0]:
+                weightHeightStandard[index][1]>person.getWeight() ? weightHeightStandardIndex[1]:
+                weightHeightStandard[index][5]<person.getWeight() ? weightHeightStandardIndex[3]:
+                weightHeightStandardIndex[2];
+        
     }
 }

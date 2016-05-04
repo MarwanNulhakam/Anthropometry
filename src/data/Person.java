@@ -30,7 +30,9 @@ public class Person {
                         (Integer.parseInt(date1[1])-Integer.parseInt(date2[1])) - 
                         ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
     }
-    
+    public boolean isMale(){
+        return isMale;
+    }
     public int getAge(){
         return monthAge;
     }
@@ -49,6 +51,16 @@ public class Person {
     }
     public void setWeightOfHeightStatus(String status){
         this.weightOfHeightStatus = status;
+    }
+    
+    public String getWeightOfAgeStatus(){
+        return this.weightOfAgeStatus;
+    }
+    public String getHeightOfAgeStatus(){
+        return this.heightOfAgeStatus;
+    }
+    public String getWeightOfHeightStatus(){
+        return this.weightOfHeightStatus;
     }
     
     public void printStatus(){
