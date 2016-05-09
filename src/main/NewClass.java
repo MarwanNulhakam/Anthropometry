@@ -11,8 +11,9 @@ package main;
  */
 public class NewClass {
     public static void main(String[]args){
-        for(int i=0;i<32;i++){
-            System.out.print(i+",");
-        }
+//        for(int i=0;i<32;i++){
+//            System.out.print(i+",");
+//        }
+        System.out.println((5.9 % 1.0));
     }
 }
