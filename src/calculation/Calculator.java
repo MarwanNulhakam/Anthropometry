@@ -72,7 +72,7 @@ public class Calculator {
         String [] weightHeightStandardIndex;
         
         if(person.getAge()<=24){
-            index = (int)((person.getHeight() - 45)*2);
+            index = person.getHeight()>45 ? (int)((person.getHeight() - 45)*2):0;
             if(person.isMale()){
                 weightHeightStandard = table.boyWeightLengthStandard;
                 weightHeightStandardIndex = table.boyWeightHeightStandardIndex;
@@ -82,7 +82,7 @@ public class Calculator {
             }
         }
         else{
-            index = (int)((person.getHeight() - 65)*2);
+            index = person.getHeight()>65 ? (int)((person.getHeight() - 65)*2):0;
             if(person.isMale()){
                 weightHeightStandard = table.boyWeightHeightStandard;
                 weightHeightStandardIndex = table.boyWeightHeightStandardIndex;
