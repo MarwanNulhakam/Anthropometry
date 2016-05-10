@@ -8,6 +8,7 @@ public class Person {
     private String name;
     private boolean isMale;
     private int monthAge;
+    private int ageByDay;
     private double weight;
     private double height;
     
@@ -29,12 +30,17 @@ public class Person {
         monthAge =  ((Integer.parseInt(date1[0])-Integer.parseInt(date2[0]))*12) + 
                         (Integer.parseInt(date1[1])-Integer.parseInt(date2[1])) - 
                         ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
+        
+        ageByDay = (monthAge*30) + Integer.parseInt(date1[2])- Integer.parseInt(date2[2]);
     }
     public boolean isMale(){
         return isMale;
     }
     public int getAge(){
         return monthAge;
+    }
+    public int getAgeByDay(){
+        return ageByDay;
     }
     public double getWeight(){
         return weight;

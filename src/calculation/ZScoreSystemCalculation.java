@@ -12,6 +12,7 @@ package calculation;
 public class ZScoreSystemCalculation {
     
     private double[]coefficient;
+    public data.Person person;
     
     private String zScoreClassification(String[]classificationTable, double zScore){
         return  zScore < -3 ?   classificationTable[0] :
@@ -53,24 +54,28 @@ public class ZScoreSystemCalculation {
     }
     
     public double countWFA(boolean isMale,int age,double weight){
-        coefficient = new data.ReferenceTableForDailyIndex().getBoysWeightForAge(age);
+        coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysWeightForAge(age):
+                               new data.ReferenceTableForDailyIndex().getGirlsWeightForAge(age);
         return this.zScoreCalculation(weight, coefficient);
     }
     
     public double countHFA(boolean isMale,int age, double height){
-        coefficient = new data.ReferenceTableForDailyIndex().getBoysWeightForAge(age);
+        coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysLengthForAge(age):
+                               new data.ReferenceTableForDailyIndex().getGirlsLengthForAge(age);
         return this.zScoreCalculation(height, coefficient);
     }
     
     public double countWFL(boolean isMale, double weight, double length){
         int index = length <=45 ? 0: (int)((length - 45.0)*10);
-        coefficient = new data.ReferenceTableForDailyIndex().getBoysWeightForAge(index);
+        coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysWeightForLength(index):
+                               new data.ReferenceTableForDailyIndex().getGirlsWeightForLength(index);
         return this.zScoreCalculation(length, coefficient);
     }
     
     public double countWFH(boolean isMale, double weight,double height){
         int index = height <=65 ? 0: (int)((height - 65.0)*10);
-        coefficient = new data.ReferenceTableForDailyIndex().getBoysWeightForAge(index);
+        coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysWeightForHeight(index):
+                               new data.ReferenceTableForDailyIndex().getBoysWeightForHeight(index);
         return this.zScoreCalculation(height, coefficient);
     }
 }

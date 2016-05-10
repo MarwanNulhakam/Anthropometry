@@ -47,18 +47,17 @@ public class GUIZScore extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         zlabelHFA = new javax.swing.JLabel();
         statusHFA = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        zlabelWFL = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        wfhLabel = new javax.swing.JLabel();
         zlabelWFH = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        statusWFH = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel5.setText("Z - score value of Weight for Age : ");
+
+        zlabelWFA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
         jLabel1.setText("weight");
 
@@ -130,15 +129,15 @@ public class GUIZScore extends javax.swing.JFrame {
 
         jLabel6.setText("Z - score value of Height for Age : ");
 
+        zlabelHFA.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         statusHFA.setText("status");
 
-        jLabel9.setText("Z - score value of Weight for Length : ");
+        wfhLabel.setText("Z - score value of Weight for Height : ");
 
-        jLabel10.setText("status");
+        zlabelWFH.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 
-        jLabel11.setText("Z - score value of Weight for Height : ");
-
-        jLabel12.setText("status");
+        statusWFH.setText("status");
 
         jLabel13.setText("Z score value");
 
@@ -158,31 +157,27 @@ public class GUIZScore extends javax.swing.JFrame {
                         .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel11)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(zlabelWFH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(zlabelWFL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(zlabelHFA, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(zlabelHFA, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
-                                    .addComponent(zlabelWFA, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(zlabelWFA, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(wfhLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(zlabelWFH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(statusWFH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(9, 9, 9))
                             .addComponent(statusWFA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(statusHFA, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -213,15 +208,10 @@ public class GUIZScore extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(zlabelWFL, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(statusWFH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(zlabelWFH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32))
+                    .addComponent(wfhLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -251,7 +241,24 @@ public class GUIZScore extends javax.swing.JFrame {
                         dateOfBirth.getText(),Double.parseDouble(height.getText()),
                         Double.parseDouble(weight.getText()));
         
-        system.calculate();
+        double zScore = system.countWFA(system.person.isMale(), system.person.getAgeByDay(), system.person.getWeight());
+        String status = system.getWFAZScoreClassification(zScore);
+        this.zlabelWFA.setText(""+zScore);
+        this.statusWFA.setText(status);
+        
+        zScore = system.countHFA(system.person.isMale(), system.person.getAgeByDay(), system.person.getHeight());
+        status = system.getHFAZScoreClassification(zScore);
+        this.zlabelHFA.setText(""+zScore);
+        this.statusHFA.setText(""+status);
+        
+        zScore = system.person.getAgeByDay() < 730 ? 
+                 system.countWFL(system.person.isMale(), system.person.getWeight(), system.person.getHeight()):
+                 system.countWFH(system.person.isMale(), system.person.getWeight(), system.person.getHeight());
+        status = system.getWFLZScoreClassification(zScore);
+        this.wfhLabel.setText(system.person.getAgeByDay() < 730 ? "Z - score value of Weight for Length : ":"Z - score value of Weight for Height : ");
+        this.zlabelWFH.setText(""+zScore);
+        this.statusWFH.setText(""+status);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -295,9 +302,6 @@ public class GUIZScore extends javax.swing.JFrame {
     private javax.swing.JTextField height;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -305,16 +309,16 @@ public class GUIZScore extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField s;
     private javax.swing.JLabel statusHFA;
     private javax.swing.JLabel statusWFA;
+    private javax.swing.JLabel statusWFH;
     private javax.swing.JTextField weight;
+    private javax.swing.JLabel wfhLabel;
     private javax.swing.JTextField y;
     private javax.swing.JLabel zlabelHFA;
     private javax.swing.JLabel zlabelWFA;
     private javax.swing.JLabel zlabelWFH;
-    private javax.swing.JLabel zlabelWFL;
     // End of variables declaration//GEN-END:variables
 }
