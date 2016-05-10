@@ -75,5 +75,4 @@ public class Person {
         System.out.println("height of age status : "+ this.heightOfAgeStatus);
         System.out.println("weight of height status : "+ this.weightOfHeightStatus);
     }
-    
 }

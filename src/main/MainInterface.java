@@ -17,5 +17,8 @@ public class MainInterface {
         calc.calculate(marwan);
         marwan.printStatus();
        
+        for(int i=1;i<32;i++){
+            System.out.print(i+",");
+        }
     }
 }
