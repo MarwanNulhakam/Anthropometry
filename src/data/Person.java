@@ -31,7 +31,7 @@ public class Person {
                         (Integer.parseInt(date1[1])-Integer.parseInt(date2[1])) - 
                         ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
         
-        ageByDay = (monthAge*30) + Integer.parseInt(date1[2])- Integer.parseInt(date2[2]);
+        ageByDay = new calculation.ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, currentDate);
     }
     public boolean isMale(){
         return isMale;
