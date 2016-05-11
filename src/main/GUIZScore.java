@@ -238,8 +238,8 @@ public class GUIZScore extends javax.swing.JFrame {
 //        zlabelWFA.setText(result+"");
 
         system.person = new data.Person("anonymous",gender.getSelectedIndex()==0,
-                        dateOfBirth.getText(),Double.parseDouble(height.getText()),
-                        Double.parseDouble(weight.getText()));
+                        dateOfBirth.getText(),Double.parseDouble(weight.getText()),
+                        Double.parseDouble(height.getText()));
         
         double zScore = system.countWFA(system.person.isMale(), system.person.getAgeByDay(), system.person.getWeight());
         String status = system.getWFAZScoreClassification(zScore);
@@ -258,6 +258,7 @@ public class GUIZScore extends javax.swing.JFrame {
         this.wfhLabel.setText(system.person.getAgeByDay() < 730 ? "Z - score value of Weight for Length : ":"Z - score value of Weight for Height : ");
         this.zlabelWFH.setText(""+zScore);
         this.statusWFH.setText(""+status);
+        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
