@@ -38,7 +38,6 @@ public class ZScoreSystemCalculation {
         double M = coefficient[2];        
         double S = coefficient[3];        
         
-        System.out.println("Y = "+Y+" L = "+L+" M = "+M+" S = "+S);
         double result = (Math.pow((Y/M),L)-1)/(S*L);
         
         if(result<-3){
@@ -55,14 +54,14 @@ public class ZScoreSystemCalculation {
     }
     
     public double countWFA(boolean isMale,int age,double weight){
-        System.out.println("age = "+age);
+        
         coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysWeightForAge(age):
                                new data.ReferenceTableForDailyIndex().getGirlsWeightForAge(age);
         return this.zScoreCalculation(weight, coefficient);
     }
     
     public double countHFA(boolean isMale,int age, double height){
-        System.out.println("age = "+age);
+        
         coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysLengthForAge(age):
                                new data.ReferenceTableForDailyIndex().getGirlsLengthForAge(age);
         return this.zScoreCalculation(height, coefficient);
@@ -78,8 +77,15 @@ public class ZScoreSystemCalculation {
     public double countWFH(boolean isMale, double weight,double height){
         int index = height <=65 ? 0: (int)((height - 65.0)*10);
         coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysWeightForHeight(index):
-                               new data.ReferenceTableForDailyIndex().getBoysWeightForHeight(index);
+                               new data.ReferenceTableForDailyIndex().getGirlsWeightForHeight(index);
         return this.zScoreCalculation(weight, coefficient);
+    }
+    
+    public double countBMI(boolean isMale, int age, double weight,double height){
+        double param = weight/Math.pow(height/100,2);
+        coefficient = isMale ? new data.ReferenceTableForDailyIndex().getBoysBMIForAge(age):
+                               new data.ReferenceTableForDailyIndex().getGirlsBMIForAge(age);
+        return this.zScoreCalculation(param, coefficient);
     }
     
     public int dailyUnitCalculationOf(String date1,String date2){
