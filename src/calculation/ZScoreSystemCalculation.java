@@ -88,9 +88,9 @@ public class ZScoreSystemCalculation {
         return this.zScoreCalculation(param, coefficient);
     }
     
-    public int dailyUnitCalculationOf(String date1,String date2){
-        String[]d1 = date1.split("-");
-        String[]d2 = date2.split("-");
+    public int dailyUnitCalculationOf(String dateFrom,String dateTo){
+        String[]d1 = dateFrom.split("-");
+        String[]d2 = dateTo.split("-");
         
         int day1=Integer.parseInt(d1[2]),month1=Integer.parseInt(d1[1]),year1=Integer.parseInt(d1[0]);
         int day2=Integer.parseInt(d2[2]),month2=Integer.parseInt(d2[1]),year2=Integer.parseInt(d2[0]);
@@ -99,7 +99,7 @@ public class ZScoreSystemCalculation {
         int counter = 0;
         dayLength[1] = year1%4 == 0 ? 29 :28;
         
-        while(day1!=day2 || month1!=month2 || year1!=year2){
+        while(day1<=day2 || month1<month2 || year1<year2){
             counter++;
             day1++;
             if (day1>dayLength[month1-1]){

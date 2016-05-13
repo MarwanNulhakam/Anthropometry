@@ -1,0 +1,26 @@
+list kebutuhan data pd sistem penghitung z score:
+
+No. Nama		jenis		jumlah			keterangan
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.  gender 		boolean		(1)			true = laki, false = perempuan, contoh konversi dari string : gender = varString.contains("laki");
+2.  tgl lahir		String		(1)			format : yyyy-MM-dd, bila ada perubahan separator, ganti separator pada method dailyUnitCalculationOf() (ZScoreSystemCalculation, line 91)
+3.  tgl pemeriksaan	String		sejumlah x-axis grafik	digunakan untuk menghitung umur per hari (return type int), format -sda-
+4.  berat badan		double		--sda--			parameter penghitung berat, nilai: bilangan pecahan positif dengan presisi sepersepuluh 
+5.  tinggi badan	double		--sda--			parameter penghitung panjang/tinggi, pada WFH dijadikan sebagai penentu index koefisien L M S. nilai: bilangan pecahan positif dengan tingkat presisi sepersepuluh
+
+
+
+list jenis method dengan return value:
+
+No. Nama			class				lemparan								return value		keterangan
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.  dailyUnitCalculationOF	ZScoreSystemCalculation		String tgl_lahir, String tgl_pemeriksaan				umur (int)		Method untuk mencacah jumlah hari dari tanggal start ke tanggal stop, digunakan untuk mengambil jumlah usia bayi dengan satuan hari
+2.  countWFA				--sda--			boolean gender, int umur, double berat_badan				wfa_zScore (double)	method untuk menghitung nilai ZScore untuk Berat Badan Menurut Umur (BBMA)
+3.  countHFA				--sda--			boolean gender, int umur, double tinggi_badan				hfa_zScore (double)	method untuk menghitung nilai ZScore untuk Tinggi Badan Menurut Umur (TBMA)
+4.  countWFL				--sda--			boolean gender, double berat_badan, double tinggi_badan			wfl_zScore (double)	method untuk menghitung nilai ZScore untuk Berat Badan Menurut Panjang Badan (BBMA), digunakan untuk anak dibawah usia 730 hari
+5.  countWFH				--sda--			boolean gender, double berat_badan, double tinggi_badan			wfh_zScore (double)	method untuk menghitung nilai ZScore untuk Berat Badan Menurut Tinggi Badan (BBMA), digunakan untuk anak usia 730 hari ke atas
+6.  countBMI				--sda--			boolean gender, int umur, double berat_badan, double tinggi_badan	bmi_zScore (double)	method untuk menghitung nilai ZScore untuk Indeks Massa Tubuh Menurut Umur (IMT/U), digunakan untuk anak usia 5 tahun ke bawah
+7.  getWFAZScoreClassification		--sda--			double wfa_zScore							wfa_status (String)	method untuk mengambil hasil klasifikasi nilai z score WFA
+8.  getHFAZScoreClassification		--sda--			double hfa_zScore							wfa_status (String)	method untuk mengambil hasil klasifikasi nilai z score WFA
+9.  getWFLZScoreClassification		--sda--			double wfl_zScore |atau| double wfh_zScore |atau| double bmi_zScore	wfa_status (String)	method untuk mengambil hasil klasifikasi nilai z score WFA
+

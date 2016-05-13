@@ -11,42 +11,53 @@ package main;
  */
 public class MainInterface {
     public static void main(String[]args){
-//        calculation.Calculator calc = new calculation.Calculator();
-//        data.Person marwan = new data.Person("Marwan", true, "2015-01-01", 12, 61.5);
-////                                              nama    jk      tgl lhr     w   h
-//        calc.calculate(marwan);
-//        marwan.printStatus();
-//       
-//        for(int i=1;i<32;i++){
-//            System.out.print(i+",");
-//        }
-
-        String gender = "laki";
-        
         calculation.ZScoreSystemCalculation cal = new calculation.ZScoreSystemCalculation();
+/*
+    *
+    *   DEKLARASI VARIABEL DATA
+    *
+*/        
+        String gender = "laki";
+        String dateOfBirth = "2015-01-03";
+        
+        String[] measurementDate = 
+            {
+                "2015-01-03","2015-2-08","2015-03-01","2015-04-09","2015-05-26","2015-06-17",
+                "2015-07-22","2015-08-15","2015-09-10","2015-10-05","2015-11-09","2015-12-12",
+                "2016-01-17","2016-02-10","2016-03-08","2016-04-20"
+            };
+        
         double ageWeightData[][] = {
-//                                  age     weight  length                        
-                                    {0,     3.2,    50.8},
-                                    {30,    3.8,    53.5},
-                                    {60,    4.7,    56.2},
-                                    {90,    5.4,    60.1},
-                                    {120,   6,      64.8},
-                                    {150,   6.7,    68.2},
-                                    {180,   7.7,    71.3},
-                                    {210,   8.4,    74.1},
-                                    {240,   9,      76.4},
-                                    {270,   9.5,    78.4},
-                                    {300,   9.9,    79.4},
-                                    {330,   10.3,   79.9},
-                                    {360,   10.6,   80.5},
-                                    {390,   10.8,   81.5},
-                                    {420,   11,     82.7},
-                                    {450,   11.1,   76.4}
-        
+//          age                                                             weight  length
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[0]),   3.2,    50.8},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[1]),   3.8,    53.5},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[2]),   4.7,    56.2},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[3]),   5.4,    60.1},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[4]),   6,      64.8},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[5]),   6.7,    68.2},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[6]),   7.7,    71.3},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[7]),   8.4,    74.1},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[8]),   9,      76.4},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[9]),   9.5,    78.4},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[10]),  9.9,    79.4},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[11]),  10.3,   79.9},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[12]),  10.6,   80.5},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[13]),  10.8,   81.5},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[14]),  11,     82.7},
+            {cal.dailyUnitCalculationOf(dateOfBirth, measurementDate[15]),  11.1,   76.4}
+
         };
+//#################################################################################################################        
         
+/*
+    *
+    * PEMROSESAN DATA
+    *
+*/        
         boolean isMale = gender.equals("laki");
+        
         int length = ageWeightData.length;
+        
         double zScoreWFA[] = new double[length];
         String statusWFA[] = new String[length];
         double zScoreHFA[] = new double[length];
@@ -66,7 +77,13 @@ public class MainInterface {
             zScoreBMIFA[i] = cal.countBMI(isMale, (int)ageWeightData[i][0],ageWeightData[i][1], ageWeightData[i][2]);
             statusBMIFA[i] = cal.getWFLZScoreClassification(zScoreBMIFA[i]);
         }
+//############################################################################################################################    
         
+/*
+    *
+    *TAMPILAN HASIL KLASIFIKASI
+    *
+*/        
         for(int j=0;j<length;j++){
             System.out.println("WFA "+j+"\t: "+zScoreWFA[j]+",\t "+statusWFA[j]);
         }
