@@ -101,5 +101,30 @@ public class MainInterface {
         }
         System.out.println("\n");
         System.gc();
+        
+        String a = "marwan,dani,rauf,null,iqbal,ian,zain,null";
+        a= a.replaceAll(",null,", "split");
+        a= a.replaceAll(",null", "");
+        a= a.replaceAll("null,", "");
+        System.gc();
+        
+        String x[] = a.split("split");
+        data.Person orang[][] = new data.Person[x.length][];
+        for(int i=0;i<x.length;i++){
+            String y[] = x[i].split(",");
+            
+            orang[i]=new data.Person[y.length];
+            for(int j=0;j<y.length;j++){
+                
+                orang[i][j] = new data.Person(y[j]);
+            }
+        }
+        System.out.println("y2.length = "+orang[0].length);
+        for(int i=0;i<orang.length;i++){
+            for(int j=0;j<orang[i].length;j++){
+                System.out.println(orang[i][j].getName());
+            }
+        }
+        
     }
 }

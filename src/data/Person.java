@@ -16,6 +16,10 @@ public class Person {
     private String weightOfHeightStatus;
     private String heightOfAgeStatus;
     
+    public Person(String name){
+        this.name = name;
+    }
+    
     public Person(String name, boolean isMale, String dateOfBirth, 
             double weight, double height){
         this.name = name;
@@ -32,6 +36,10 @@ public class Person {
                         ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
         
         ageByDay = new calculation.ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, currentDate);
+    }
+    
+    public String getName(){
+        return this.name;
     }
     public boolean isMale(){
         return isMale;
