@@ -24,25 +24,6 @@ public class GraphicCode {
     private String chartTitle;
     private String seriesName;
     private LineChart<String,Number> lineChart;
-    public void start(JFXPanel stage, int width,int height, String data[][]) {
-        //stage.setTitle("Line Chart Sample");
-        final CategoryAxis xAxis = new CategoryAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Month");
-        lineChart = new LineChart<String,Number>(xAxis,yAxis);
-       
-        lineChart.setTitle("Stock Monitoring, 2010");
-        lineChart.setCreateSymbols(false);                                
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Portfolio 1");
-        
-        refreshData (series1,data);
-        scene  = new Scene(lineChart,width,height);       
-        lineChart.getData().addAll(series1);
-        
-        stage.setScene(scene);
-        stage.setVisible(true);
-    }
     
     public void setChartTitle(String chartName){
         this.chartTitle = chartName;

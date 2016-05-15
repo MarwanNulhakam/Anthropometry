@@ -30,35 +30,33 @@ public class GraphicPanel extends javax.swing.JPanel{
             {"Nov","29"},
             {"Dec","25"}
         };
+        
         gPanel = new GraphicCode();
         pane = new JFXPanel();
-        gPanel.start(pane,560,200,data);
+        gPanel.setChartTitle("Grafik monitoring Z Score");
+        gPanel.setSeriesName("baby Z Score");
+        gPanel.refreshData(pane,560,220,data);
         this.add(pane);
         pane.setVisible(true);
+    }
+    
+    public GraphicPanel(String chartTitle,String seriesName){
+        gPanel = new GraphicCode();
+        pane = new JFXPanel();
+        gPanel.setChartTitle("Grafik monitoring Z Score");
+        gPanel.setSeriesName("baby Z Score");
     }
     
     public void refreshGraphic(String[][]data){
-        gPanel.refreshData(pane,560,200,data);
+        gPanel.refreshData(pane,560,220,data);
         this.add(pane);
         pane.setVisible(true);
     }
     
-    public void restart(){
-         String data[][] = {
-            {"Jan","23"},
-            {"Feb","14"},
-            {"Mar","15"},
-            {"Apr","24"},
-            {"May","34"},
-            {"Jun","36"},
-            {"Jul","22"},
-            {"Aug","45"},
-            {"Sep","43"},
-            {"Oct","17"},
-            {"Nov","29"},
-            {"Dec","25"}
-        };
-        gPanel.start(pane,560,200,data);
+    public void refreshGraphic(String[][]data,String chartTitle,String seriesName){
+        gPanel.setChartTitle(chartTitle);
+        gPanel.setSeriesName(seriesName);
+        gPanel.refreshData(pane,560,220,data);
         this.add(pane);
         pane.setVisible(true);
     }
