@@ -38,6 +38,23 @@ public class Person {
         ageByDay = new calculation.ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, currentDate);
     }
     
+    public Person(String name, boolean isMale, String dateOfBirth, String currentDate, 
+            double weight, double height){
+        this.name = name;
+        this.isMale=isMale;
+        this.weight=weight;
+        this.height=height;
+        
+        String[] date1 = currentDate.split("-");
+        String[] date2 = dateOfBirth.split("-");
+        
+        monthAge =  ((Integer.parseInt(date1[0])-Integer.parseInt(date2[0]))*12) + 
+                        (Integer.parseInt(date1[1])-Integer.parseInt(date2[1])) - 
+                        ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
+        
+        ageByDay = new calculation.ZScoreSystemCalculation().dailyUnitCalculationOf(dateOfBirth, currentDate);
+    }
+    
     public String getName(){
         return this.name;
     }
