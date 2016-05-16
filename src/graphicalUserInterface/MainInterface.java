@@ -25,11 +25,14 @@ public class MainInterface extends javax.swing.JFrame {
     private String dateOfBirth;
     private String radioInspector;
     private String []childIDList;
+    
+    private String query;
+    String[][]result;
     /**
      * Creates new form MainInterface
      */
     public MainInterface() {
-        System.gc();
+        
         initComponents();
         setResizable(false);
         setLocation(250,10);
@@ -39,26 +42,28 @@ public class MainInterface extends javax.swing.JFrame {
     public MainInterface(module.DBConsole db, String childID){
         this();
         this.db=db;
-        String temp[][] = db.doQuery("SELECT id FROM child ORDER BY id ASC",0);
         
-        for (String[] temp1 : temp) {
-            for (String temp11 : temp1) {
-                System.out.print("   " + temp11);
-            }
-            System.out.println("");
-        }
-        childIDList = new String[temp.length*temp[0].length];
-        
-        for(int i=0;i<temp.length;i++){
-            System.arraycopy(temp[i], 0, childIDList, i*(temp.length-1), temp[i].length);
-        }
-        idList.setModel(new javax.swing.DefaultComboBoxModel<>(childIDList));
-        
+        refreshIDList();
         idList.setSelectedItem(childID);
         
         refreshInterface(childID);
     }
 
+    public void refreshIDList(){
+        String temp[][] = db.doQuery("SELECT id FROM child ORDER BY id ASC",0);
+        
+        childIDList = new String[temp.length*temp[0].length];
+        
+        for(int i=0;i<temp.length;i++){
+            for(int j=0;j<temp[0].length;j++){
+                childIDList[(temp[0].length*i)+j] = temp[i][j];
+            }
+            
+            //System.arraycopy(temp[i], 0, childIDList, (i*temp[0].length)-1, temp[i].length);
+        }
+        idList.setModel(new javax.swing.DefaultComboBoxModel<>(childIDList));
+    }
+    
     private void refreshInterface(String childID){
         this.childID=childID;
         
@@ -151,6 +156,7 @@ public class MainInterface extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         wfaZScoreField = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
@@ -169,6 +175,7 @@ public class MainInterface extends javax.swing.JFrame {
         wflRadio = new javax.swing.JRadioButton();
         hfaRadio = new javax.swing.JRadioButton();
         wfaRadio = new javax.swing.JRadioButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -330,19 +337,27 @@ public class MainInterface extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        jButton1.setText("add visit");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
@@ -352,9 +367,11 @@ public class MainInterface extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(1, 1, 1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -525,6 +542,13 @@ public class MainInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jButton2.setText("Add children data");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -533,22 +557,26 @@ public class MainInterface extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jButton2)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -626,18 +654,25 @@ public class MainInterface extends javax.swing.JFrame {
     private String[][]populateData(){
         if (childID.equals(""))
             return null;
-        
-        String query = "SELECT * from visit where child_ID = '"+childID+"' ORDER BY visit_date";
-        String[][]result = db.doQuery(query, 1);
-        System.out.println(result.length);
+        query = null;
+        System.gc();
+        query = "SELECT * from visit where child_ID = '"+childID+"' ORDER BY visit_date";
+        result=null;
+        System.gc();
+        result = db.doQuery(query, 1);
         return result;
     }
-        
+    
+    public void commandToUseByAddVisitClass(){
+        createWFAGraphic();
+        this.wfaRadio.setSelected(true);
+    }
+    
     private void wfaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wfaRadioActionPerformed
         if(radioInspector.equals("wfa"))
             return;
         radioInspector="wfa";
-        System.gc();
+        
         this.createWFAGraphic();
     }//GEN-LAST:event_wfaRadioActionPerformed
 
@@ -645,7 +680,7 @@ public class MainInterface extends javax.swing.JFrame {
         if(radioInspector.equals("hfa"))
             return;
         radioInspector="hfa";
-        System.gc();
+        
         this.createHFAGraphic();
     }//GEN-LAST:event_hfaRadioActionPerformed
 
@@ -653,13 +688,22 @@ public class MainInterface extends javax.swing.JFrame {
         if(radioInspector.equals("wfl"))
             return;
         radioInspector="wfl";
-        System.gc();
+        
         this.createWFLGraphic();
     }//GEN-LAST:event_wflRadioActionPerformed
 
     private void idListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idListActionPerformed
         this.refreshInterface(idList.getSelectedItem().toString());
     }//GEN-LAST:event_idListActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        new AddVisit(db,this,childID).setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new InputForm(db,this,childID).setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -705,6 +749,8 @@ public class MainInterface extends javax.swing.JFrame {
     private javax.swing.JLabel heightField;
     private javax.swing.JRadioButton hfaRadio;
     private javax.swing.JComboBox<String> idList;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;

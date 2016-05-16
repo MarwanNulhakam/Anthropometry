@@ -45,12 +45,14 @@ public class DBConsole {
             state=con.createStatement();
             nothing_error&=true;
             System.out.println("Database Connected");
+            System.gc();
         }catch(ClassNotFoundException e){
             nothing_error&=false;
             System.out.println(e.getMessage());
         }catch(SQLException ex){
             nothing_error&=false;
             System.out.println("error found : "+ex.getMessage());
+            System.gc();
         }
     }
 
@@ -59,9 +61,11 @@ public class DBConsole {
             state.executeUpdate("use "+dbName);
             System.out.println("database created successfully");
             nothing_error&=true;
+            System.gc();
         }catch(SQLException ex){
             System.out.println("error found : "+ex.getMessage());
             nothing_error&=false;
+            System.gc();
         }
     }
 
@@ -70,9 +74,11 @@ public class DBConsole {
             state.executeUpdate(a);
             javax.swing.JOptionPane.showMessageDialog(null, "Process Completed", "info", javax.swing.JOptionPane.INFORMATION_MESSAGE);
             nothing_error&=true;
+            System.gc();
         }catch(SQLException ex){
             javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
             nothing_error&=false;
+            System.gc();
         }
     }
     public void doStatement(String a,int hide){
@@ -83,18 +89,20 @@ public class DBConsole {
             System.out.println(ex.getMessage());
             String x= (ex.getMessage()).substring(0, 15);
             System.out.println(x);
+            System.gc();
             if(x.equals("Duplicate entry")){
                 nothing_error&=true;
             }
             else{
                 nothing_error&=false;
                 javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+                System.gc();
             }
         }
     }
 
     public String [] doQuery(String query){
-        System.out.println(query);
+        //System.out.println(query);
         String[]Result=null;
         ResultSet result;
         int x=0;
@@ -102,7 +110,7 @@ public class DBConsole {
             result = state.executeQuery(query);
             result.last();
             x=result.getRow();
-            System.out.println("last row index = "+x);
+            //System.out.println("last row index = "+x);
             if(x<1)
                 return (Result);
             Result = new String[x];
@@ -110,17 +118,20 @@ public class DBConsole {
             int i=0;
             do{
                 Result[i]=result.getString(1);
-                System.out.println(i+" : "+Result[i]);
+                //System.out.println(i+" : "+Result[i]);
                 i++;
             }while(result.next());
         }catch(SQLException ex){
             javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.gc();
             return null;
         }
+        System.gc();
         return Result;
+        
     }
     public String [][] doQuery(String query,int QueryAttribute){
-        System.out.println(query);
+        //System.out.println(query);
         String[][]Result=null;
         ResultSet result;
         int x=0;        
@@ -150,10 +161,13 @@ public class DBConsole {
             }while(result.next());
         }catch(SQLException ex){
             javax.swing.JOptionPane.showMessageDialog(null, "sorry, "+ex.getMessage(), "ERROR", javax.swing.JOptionPane.ERROR_MESSAGE);
+            System.gc();
             return null;
-        }catch(NullPointerException npe){
             
+        }catch(NullPointerException npe){
+            System.gc();
         }
+        System.gc();
         return Result;
     }
 
@@ -161,7 +175,7 @@ public class DBConsole {
         try {
             state.close();
             con.close();
-            System.out.println("connection closed");
+//            System.out.println("connection closed");
         } catch (SQLException ex) {
             System.out.println("error found : "+ex.getMessage());
         }
