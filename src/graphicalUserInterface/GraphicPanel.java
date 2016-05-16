@@ -54,9 +54,12 @@ public class GraphicPanel extends javax.swing.JPanel{
     }
     
     public void refreshGraphic(String[][]data,String chartTitle,String seriesName){
+        this.refreshGraphic(data,chartTitle,seriesName,"age (month)","z score");
+    }
+    public void refreshGraphic(String[][]data,String chartTitle,String seriesName, String x, String y){
         gPanel.setChartTitle(chartTitle);
         gPanel.setSeriesName(seriesName);
-        gPanel.refreshData(pane,560,220,data);
+        gPanel.refreshData(pane,560,220,data,x,y);
         this.add(pane);
         pane.setVisible(true);
     }

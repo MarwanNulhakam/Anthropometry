@@ -34,10 +34,14 @@ public class GraphicCode {
     }
     
     public void refreshData(JFXPanel stage,int width,int height, String [][]data){
+        this.refreshData(stage, width,height,data,"age (month)","z score");
+    }
+    
+    public void refreshData(JFXPanel stage,int width,int height, String [][]data, String xLabel, String yLabel){
         final CategoryAxis xAxis = new CategoryAxis();
         final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("age (month)");
-        yAxis.setLabel("z score");
+        xAxis.setLabel(xLabel);
+        yAxis.setLabel(yLabel);
         lineChart = new LineChart<String,Number>(xAxis,yAxis);
         lineChart.setTitle(chartTitle);
         lineChart.setCreateSymbols(false);                                
