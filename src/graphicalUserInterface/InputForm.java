@@ -226,7 +226,8 @@ public class InputForm extends javax.swing.JFrame {
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         System.gc();
-        new graphicalUserInterface.MainInterface(db,prevID).setVisible(true);
+        if(mi==null)
+            new graphicalUserInterface.MainInterface(db,prevID).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cancelActionPerformed
 
