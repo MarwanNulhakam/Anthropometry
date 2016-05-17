@@ -83,6 +83,8 @@ public class MainInterface extends javax.swing.JFrame {
                 Double.parseDouble(dataVisit[0][3])
         );
         
+        hfaRadio.setText((zScore.person.getAgeByDay()<730 ? "length":"height")+" for age" );
+        wflRadio.setText("weight for "+(zScore.person.getAgeByDay()<730 ? "length":"height"));
         setLatestInfo(dataVisit[0]);
         
         double[]z = {
