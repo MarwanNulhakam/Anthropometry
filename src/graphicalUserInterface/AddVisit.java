@@ -117,12 +117,13 @@ public class AddVisit extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(length, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(weight, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,14 +167,26 @@ public class AddVisit extends javax.swing.JFrame {
         try{
             double w = Double.parseDouble(weight.getText());
             double l = Double.parseDouble(length.getText());
+            String date = year.getSelectedItem()+"-"+(month.getSelectedIndex()+1 < 10? "0"+(month.getSelectedIndex()+1):month.getSelectedIndex()+1 )+"-"
+                    +((day.getSelectedIndex()+1)<10 ? "0"+(day.getSelectedIndex()+1) : (day.getSelectedIndex()+1));
             
-            db.doStatement("INSERT INTO visit VALUES ('"+childID+"','"
-                    +year.getSelectedItem()+"-"+(month.getSelectedIndex()+1 < 10? "0"+(month.getSelectedIndex()+1):month.getSelectedIndex()+1 )+"-"
-                    +((day.getSelectedIndex()+1)<10 ? "0"+(day.getSelectedIndex()+1) : (day.getSelectedIndex()+1))+ "',"
-                    +weight.getText()+","
-                    +length.getText()+")", 0);
+            String [][]dateVisit = db.doQuery("SELECT MAX(visit_date) FROM visit where child_id = '"+childID+"'",0);
             
-            mi.commandToUseByAddVisitClass();
+            if(new calculation.ZScoreSystemCalculation().dailyUnitCalculationOf(dateVisit[0][0], date) < 1){
+                int choose = javax.swing.JOptionPane.showConfirmDialog(null, "last visit date seems to be update\nthan"
+                        + " visit date, are you sure want to continue?", "WARNING", javax.swing.JOptionPane.YES_NO_OPTION);
+                
+                if(choose==1)
+                    return;
+            }
+            System.out.println("now you're here");
+//            db.doStatement("INSERT INTO visit VALUES ('"+childID+"','"
+//                    +year.getSelectedItem()+"-"+(month.getSelectedIndex()+1 < 10? "0"+(month.getSelectedIndex()+1):month.getSelectedIndex()+1 )+"-"
+//                    +((day.getSelectedIndex()+1)<10 ? "0"+(day.getSelectedIndex()+1) : (day.getSelectedIndex()+1))+ "',"
+//                    +weight.getText()+","
+//                    +length.getText()+")", 0);
+//            
+//            mi.commandToUseByAddVisitClass();
             
         }catch(NumberFormatException ex){
             javax.swing.JOptionPane.showMessageDialog(null,"You have enter the incorrect number format",
