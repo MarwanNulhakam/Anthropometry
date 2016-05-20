@@ -22,6 +22,7 @@ public class Login extends javax.swing.JFrame {
         db = new module.DBConsole("127.0.0.1","opensrpdummy","root","");
         nod = db.doQuery("SELECT id FROM child", 0);
         setLocation(400,250);
+        this.setResizable(false);
     }
 
     /**
