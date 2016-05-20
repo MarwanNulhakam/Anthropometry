@@ -20,6 +20,8 @@ public class AddVisit extends javax.swing.JFrame {
     public AddVisit() {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
+        setLocation(400,250);
     }
     
     public AddVisit(module.DBConsole db, MainInterface mi, String childID) {
@@ -180,13 +182,13 @@ public class AddVisit extends javax.swing.JFrame {
                     return;
             }
             System.out.println("now you're here");
-//            db.doStatement("INSERT INTO visit VALUES ('"+childID+"','"
-//                    +year.getSelectedItem()+"-"+(month.getSelectedIndex()+1 < 10? "0"+(month.getSelectedIndex()+1):month.getSelectedIndex()+1 )+"-"
-//                    +((day.getSelectedIndex()+1)<10 ? "0"+(day.getSelectedIndex()+1) : (day.getSelectedIndex()+1))+ "',"
-//                    +weight.getText()+","
-//                    +length.getText()+")", 0);
-//            
-//            mi.commandToUseByAddVisitClass();
+            db.doStatement("INSERT INTO visit VALUES ('"+childID+"','"
+                    +year.getSelectedItem()+"-"+(month.getSelectedIndex()+1 < 10? "0"+(month.getSelectedIndex()+1):month.getSelectedIndex()+1 )+"-"
+                    +((day.getSelectedIndex()+1)<10 ? "0"+(day.getSelectedIndex()+1) : (day.getSelectedIndex()+1))+ "',"
+                    +weight.getText()+","
+                    +length.getText()+")", 0);
+            
+            mi.commandToUseByAddVisitClass();
             
         }catch(NumberFormatException ex){
             javax.swing.JOptionPane.showMessageDialog(null,"You have enter the incorrect number format",
