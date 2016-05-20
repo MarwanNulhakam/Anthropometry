@@ -11,6 +11,7 @@ public class Person {
     private int ageByDay;
     private double weight;
     private double height;
+    private String dateOfBirth;
     
     private String weightOfAgeStatus;
     private String weightOfHeightStatus;
@@ -26,7 +27,7 @@ public class Person {
         this.isMale=isMale;
         this.weight=weight;
         this.height=height;
-        
+        this.dateOfBirth = dateOfBirth;
         String currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         String[] date1 = currentDate.split("-");
         String[] date2 = dateOfBirth.split("-");
@@ -44,6 +45,7 @@ public class Person {
         this.isMale=isMale;
         this.weight=weight;
         this.height=height;
+        this.dateOfBirth = dateOfBirth;
         
         String[] date1 = currentDate.split("-");
         String[] date2 = dateOfBirth.split("-");
@@ -73,7 +75,9 @@ public class Person {
     public double getHeight(){
         return height;
     }
-    
+    public String getDoB(){
+        return dateOfBirth;
+    }
     public void setWeightOfAgeStatus(String status){
         this.weightOfAgeStatus = status;
     }
