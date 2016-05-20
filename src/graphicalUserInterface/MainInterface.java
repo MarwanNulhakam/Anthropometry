@@ -72,15 +72,16 @@ public class MainInterface extends javax.swing.JFrame {
         String [][]dataVisit = db.doQuery("SELECT * FROM visit where child_id = '"+childID+
                 "' and visit_date = (SELECT MAX(visit_date) FROM visit WHERE child_id='"+childID+"')", 0);
         
+        
         setGeneralInfo(dataChild[0]);
         this.dateOfBirth = dataChild[0][4];
         zScore.person = new data.Person(
                 dataChild[0][1],
                 dataChild[0][2].contains("laki"),
                 dataChild[0][4], 
-                dataVisit[0][1],
-                Double.parseDouble(dataVisit[0][2]),
-                Double.parseDouble(dataVisit[0][3])
+                dataVisit!=null?dataVisit[0][1]:dataChild[0][4],
+                dataVisit!=null?Double.parseDouble(dataVisit[0][2]):0.0,
+                dataVisit!=null?Double.parseDouble(dataVisit[0][3]):0.0
         );
         
         hfaRadio.setText((zScore.person.getAgeByDay()<730 ? "length":"height")+" for age" );
@@ -597,7 +598,13 @@ public class MainInterface extends javax.swing.JFrame {
     private void setLatestInfo(String[]data){
         if(data.length<1)
             return;
-        this.ageField.setText(": "+zScore.person.getAge()+" Month");
+        String[]date2 = zScore.person.getDoB().split("-");
+        String[]date1 = data[1].split("-");
+        
+        int monthAge =  ((Integer.parseInt(date1[0])-Integer.parseInt(date2[0]))*12) + 
+                        (Integer.parseInt(date1[1])-Integer.parseInt(date2[1])) - 
+                        ((Integer.parseInt(date1[2])-Integer.parseInt(date2[2]))<0 ? 1:0);
+        this.ageField.setText(": "+monthAge+" Month");
         this.lastVisitField.setText(": "+data[1]);
         this.weightField.setText(": "+data[2]+" kg");
         this.heightField.setText(": "+data[3]+" cm");
@@ -619,12 +626,12 @@ public class MainInterface extends javax.swing.JFrame {
         
         String [][] z = new String[queryResult.length][2];
         for(int i=0;i<queryResult.length;i++){
-            z[i][0] = Integer.toString(zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]));
+            z[i][0] = (i+1)+"\n("+Integer.toString(zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]))+")";
             z[i][1] = Double.toString(zScore.countWFA(zScore.person.isMale(), 
-                    Integer.parseInt(z[i][0]), 
+                    zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]), 
                     Double.parseDouble(queryResult[i][2])));
         }
-        graphicPanelFX.refreshGraphic(z, "Weight for Age Z-Score", "weight for age","age (day)","z score");
+        graphicPanelFX.refreshGraphic(z, "Weight for Age Z-Score", "weight for age","visits (current age on days)","z score");
     }
     
     private void createHFAGraphic(){
@@ -632,12 +639,12 @@ public class MainInterface extends javax.swing.JFrame {
         
         String [][] z = new String[queryResult.length][2];
         for(int i=0;i<queryResult.length;i++){
-            z[i][0] = Integer.toString(zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]));
+            z[i][0] = (i+1)+"\n("+Integer.toString(zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]))+")";
             z[i][1] = Double.toString(zScore.countHFA(zScore.person.isMale(), 
-                    Integer.parseInt(z[i][0]), 
+                    zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]), 
                     Double.parseDouble(queryResult[i][3])));
         }
-        graphicPanelFX.refreshGraphic(z, (zScore.person.getAgeByDay()<730? "Length":"Height")+" for Age Z-Score", (zScore.person.getAgeByDay()<730? "length":"height")+" for age","age (day)","z score");
+        graphicPanelFX.refreshGraphic(z, (zScore.person.getAgeByDay()<730? "Length":"Height")+" for Age Z-Score", (zScore.person.getAgeByDay()<730? "length":"height")+" for age","visits (current age on days)","z score");
     }
     
     private void createWFLGraphic(){
@@ -645,12 +652,12 @@ public class MainInterface extends javax.swing.JFrame {
         
         String [][] z = new String[queryResult.length][2];
         for(int i=0;i<queryResult.length;i++){
-            z[i][0] = Integer.toString(zScore.dailyUnitCalculationOf(dateOfBirth, queryResult[i][1]));
+            z[i][0] = (i+1) + "\n("+queryResult[i][3]+")";
             z[i][1] = Double.toString(zScore.countWFL(zScore.person.isMale(),Double.parseDouble(queryResult[i][2]),Double.parseDouble(queryResult[i][3])));
         }
         
         graphicPanelFX.refreshGraphic(z, "Weight for "+(zScore.person.getAgeByDay()<730? "Length":"Height")+" Z-Score", 
-                "weight for "+(zScore.person.getAgeByDay()<730? "length":"height"),"height (cm)","z score");
+                "weight for "+(zScore.person.getAgeByDay()<730? "length":"height"),"visits (current "+(zScore.person.getAgeByDay()<730? "length":"height")+")","z score");
     }
     
     private String[][]populateData(){
@@ -668,6 +675,8 @@ public class MainInterface extends javax.swing.JFrame {
     public void commandToUseByAddVisitClass(){
         createWFAGraphic();
         this.wfaRadio.setSelected(true);
+        String[][]res = populateData();
+        setLatestInfo(res[res.length-1]);
     }
     
     private void wfaRadioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_wfaRadioActionPerformed
@@ -699,7 +708,6 @@ public class MainInterface extends javax.swing.JFrame {
     }//GEN-LAST:event_idListActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
         new AddVisit(db,this,childID).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
